@@ -1,0 +1,9 @@
+﻿{
+    "code": "padlockkey",
+    "class": "padlockkey",
+    "texture": { "base": "item/padlockkey" },
+    "creativeinventory": {
+        "general": [ "*" ],
+        "items": [ "*" ]
+    }
+}

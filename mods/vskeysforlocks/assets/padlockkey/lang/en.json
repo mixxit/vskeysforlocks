@@ -1,0 +1,6 @@
+﻿{
+    "item-padlockkey": "Padlock Key",
+    "ingameerror-cannotusekey-notreinforced": "Cannot use a key on a door that is not reinforced",
+    "ingameerror-cannotusekey-notlocked": "Cannot use a key on a door that is not locked",
+    "heldhelp-padlockkey": "Used to Unlock Padlocks"
+}

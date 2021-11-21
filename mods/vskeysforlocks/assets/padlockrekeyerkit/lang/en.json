@@ -1,0 +1,6 @@
+﻿{
+    "item-padlockrekeyerkit": "Padlock Rekeyer Kit",
+    "ingameerror-cannotuserekeyer-notreinforced": "Cannot use a rekeyer kit on a door that is not reinforced",
+    "ingameerror-cannotuserekeyer-notlocked": "Cannot use a rekeyer kit on a door that is not locked",
+    "heldhelp-padlockrekeyerkit": "Used to Attach a new Key Mechanism to In-Place Padlocks"
+}

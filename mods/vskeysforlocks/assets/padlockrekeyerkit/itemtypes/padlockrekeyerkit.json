@@ -1,0 +1,9 @@
+﻿{
+    "code": "padlockrekeyerkit",
+    "class": "padlockrekeyerkit",
+    "texture": { "base": "item/padlockrekeyerkit" },
+    "creativeinventory": {
+        "general": [ "*" ],
+        "items": [ "*" ]
+    }
+}
