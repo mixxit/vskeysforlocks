@@ -5,10 +5,9 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
 using Vintagestory.API.Config;
-using Vintagestory.API.Datastructures;
-using Vintagestory.API.MathTools;
 using Vintagestory.API.Util;
 using Vintagestory.GameContent;
+using vskeysforlocks.src.BlockBehaviors;
 
 namespace vskeysforlocks.src
 {
@@ -18,7 +17,7 @@ namespace vskeysforlocks.src
 
         public override void OnLoaded(ICoreAPI api)
         {
-            if (api.Side != EnumAppSide.Client) 
+            if (api.Side != EnumAppSide.Client)
                 return;
 
             ICoreClientAPI capi = api as ICoreClientAPI;
@@ -31,7 +30,7 @@ namespace vskeysforlocks.src
                 {
                     if (block.Code == null) continue;
 
-                    if (block.HasBehavior<BlockBehaviorLockable>(true) && block.CreativeInventoryTabs != null && block.CreativeInventoryTabs.Length > 0)
+                    if (block.HasBehavior<BlockBehaviorLockableByKey>(true) && block.CreativeInventoryTabs != null && block.CreativeInventoryTabs.Length > 0)
                         stacks.Add(new ItemStack(block));
                 }
 
@@ -47,70 +46,20 @@ namespace vskeysforlocks.src
                 };
             });
         }
-        
-        public override void OnCollected(ItemStack stack, Entity entity)
-        {
-            base.OnCollected(stack, entity);
-            if (api.Side.IsServer())
-                SetKeySerial(stack);
-        }
 
-        public override void OnCreatedByCrafting(ItemSlot[] allInputslots, ItemSlot outputSlot, GridRecipe byRecipe)
+        public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
         {
-            if (api.Side.IsServer())
-                SetKeySerial(outputSlot.Itemstack);
-
-            base.OnCreatedByCrafting(allInputslots, outputSlot, byRecipe);
-        }
-
-        public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
-        {
-            if (blockSel != null && byEntity.World.BlockAccessor.GetBlock(blockSel.Position).HasBehavior<BlockBehaviorLockable>(true))
+            if (IsKeySerialized(inSlot.Itemstack))
             {
-                ModSystemBlockReinforcement modBre = byEntity.World.Api.ModLoader.GetModSystem<ModSystemBlockReinforcement>();
-
-                IPlayer player = (byEntity as EntityPlayer).Player;
-
-                if (!modBre.IsReinforced(blockSel.Position))
-                {
-                    if (api is ICoreClientAPI)
-                        (api as ICoreClientAPI).TriggerIngameError(this, "incomplete", Lang.Get("padlockkey:ingameerror-cannotusekey-notreinforced"));
-                    return;
-                }
-
-                BlockReinforcement bre = modBre.GetReinforcment(blockSel.Position);
-
-                if (!bre.Locked)
-                {
-                    if (api is ICoreClientAPI)
-                        (api as ICoreClientAPI).TriggerIngameError(this, "incomplete", Lang.Get("padlockkey:ingameerror-cannotusekey-notlocked"));
-                    return;
-                }
-
-                if (api is ICoreClientAPI)
-                    (api as ICoreClientAPI).TriggerIngameError(this, "incomplete", "To be implemented");
-
-                handling = EnumHandHandling.PreventDefault;
-                return;
+                int keySerial = GetKeySerial(inSlot.Itemstack);
+                dsc.AppendLine(Lang.Get("Key Serial: {0}", keySerial.ToString()));
+            }
+            else
+            {
+                dsc.AppendLine(Lang.Get("Key Serial: {0}", "Never used"));
             }
 
-            base.OnHeldInteractStart(slot, byEntity, blockSel, entitySel, firstEvent, ref handling);
-        }
-
-        public void SetKeySerial(ItemStack itemStack)
-        {
-            if (!api.Side.IsServer())
-                return;
-
-            if (itemStack.Attributes != null)
-            {
-                if (!itemStack.Attributes.HasAttribute("keySerial"))
-                {
-                    itemStack.Attributes.SetInt("keySerial", api.World.Rand.Next(10000, 99999));
-                    if (!itemStack.Attributes.HasAttribute("keySerial"))
-                        throw new Exception("This should not happen");
-                }
-            }
+            base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
         }
 
         public int GetKeySerial(ItemStack itemStack)
@@ -125,13 +74,22 @@ namespace vskeysforlocks.src
             return -1;
         }
 
-        public override void GetHeldItemInfo(ItemSlot inSlot, StringBuilder dsc, IWorldAccessor world, bool withDebugInfo)
+        public bool IsKeySerialized(ItemStack itemStack)
         {
-            int keySerial = GetKeySerial(inSlot.Itemstack);
-            if (keySerial > 9999)
-                dsc.AppendLine(Lang.Get("Key Serial: {0}", keySerial.ToString()));
+            return (GetKeySerial(itemStack) > 9999);
+        }
 
-            base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
+        public void SetKeySerial(ItemStack itemStack)
+        {
+            if (itemStack.Attributes != null)
+            {
+                if (!itemStack.Attributes.HasAttribute("keySerial"))
+                {
+                    itemStack.Attributes.SetInt("keySerial", api.World.Rand.Next(10000, 99999));
+                    if (!itemStack.Attributes.HasAttribute("keySerial"))
+                        throw new Exception("This should not happen");
+                }
+            }
         }
 
         public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot)

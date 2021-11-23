@@ -1,0 +1,14 @@
+[
+    {
+        "op": "add",
+        "path": "/behaviors",
+        "value": [
+            {
+                "name": "BlockBehaviorLockableByKey"
+            }
+        ],
+        "file": "blocktypes/wood/door.json",
+        "side": "Server"
+    }
+]
+

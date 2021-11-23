@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Vintagestory.API.Common;
+using vskeysforlocks.src.BlockBehaviors;
 
 namespace vskeysforlocks.src
 {
@@ -12,10 +13,10 @@ namespace vskeysforlocks.src
         public override void Start(ICoreAPI api)
         {
             base.Start(api);
+            api.RegisterBlockBehaviorClass("BlockBehaviorLockableByKey", typeof(BlockBehaviorLockableByKey));
+            api.RegisterBlockEntityClass("BlockEntityLockableByKey", typeof(BlockEntityLockableByKey));
             api.RegisterItemClass("padlockkey", typeof(PadlockKeyItem));
-            api.RegisterItemClass("padlockskeletonkey", typeof(PadlockSkeletonKeyItem));
-            api.RegisterItemClass("padlockrekeyerkit", typeof(PadlockRekeyerKitItem));
-            
+            api.RegisterItemClass("padlockwithkeymechanism", typeof(PadlockWithKeyMechanismItem));
         }
     }
 }

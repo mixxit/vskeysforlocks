@@ -1,0 +1,10 @@
+﻿{
+    "code": "padlockwithkeymechanism",
+    "class": "padlockwithkeymechanism",
+    "texture": { "base": "item/padlockwithkeymechanism" },
+    "maxstacksize":  1,
+    "creativeinventory": {
+        "general": [ "*" ],
+        "items": [ "*" ]
+    }
+}

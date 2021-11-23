@@ -1,0 +1,21 @@
+{
+    "ingredient": {
+        "type": "item",
+        "code": "game:ingot-*",
+        "name": "metal",
+        "allowedVariants": [ "iron", "meteoriciron" ]
+    },
+    "pattern": [
+        [
+            "_#####_",
+            "####__#",
+            "####__#",
+            "_#####_"
+        ]
+    ],
+    "name": "Padlock with Key Mechanism",
+    "output": {
+        "type": "item",
+        "code": "padlockwithkeymechanism"
+    }
+}

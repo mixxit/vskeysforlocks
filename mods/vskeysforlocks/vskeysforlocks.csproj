@@ -63,25 +63,26 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\padlockrekeyerkit\textures\item\padlockrekeyerkit.png" />
-    <Content Include="assets\padlockskeletonkey\textures\item\padlockskeletonkey.png" />
+    <Content Include="assets\padlockwithkeymechanism\textures\item\padlockwithkeymechanism.png" />
     <Content Include="assets\padlockkey\textures\item\padlockkey.png" />
     <Content Include="modinfo.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="assets\padlockrekeyerkit\itemtypes\padlockrekeyerkit.json" />
-    <None Include="assets\padlockrekeyerkit\lang\en.json" />
-    <None Include="assets\padlockskeletonkey\itemtypes\padlockskeletonkey.json" />
-    <None Include="assets\padlockskeletonkey\lang\en.json" />
+    <None Include="assets\game\patches\door-add-locking-blockentity.json" />
+    <None Include="assets\game\patches\door-add-locking-behavior.json" />
+    <None Include="assets\padlockwithkeymechanism\itemtypes\padlockwithkeymechanism.json" />
+    <None Include="assets\padlockwithkeymechanism\lang\en.json" />
     <None Include="assets\padlockkey\itemtypes\padlockkey.json" />
     <None Include="assets\padlockkey\lang\en.json" />
+    <None Include="assets\padlockkey\recipes\smithing\padlockkey.json" />
+    <None Include="assets\padlockwithkeymechanism\recipes\smithing\padlockwithkeymechanism.json" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="src\BlockReinforcementExt.cs" />
+    <Compile Include="src\BlockBehaviors\BlockBehaviorLockableByKey.cs" />
+    <Compile Include="src\BlockEntities\BlockEntityLockableByKey.cs" />
     <Compile Include="src\PadlockKeyItem.cs" />
-    <Compile Include="src\PadlockRekeyerKitItem.cs" />
-    <Compile Include="src\PadlockSkeletonKeyItem.cs" />
+    <Compile Include="src\PadlockWithKeyMechanismItem.cs" />
     <Compile Include="src\VSKeysForLocksMod.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

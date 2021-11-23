@@ -1,9 +1,0 @@
-﻿{
-    "code": "padlockskeletonkey",
-    "class": "padlockskeletonkey",
-    "texture": { "base": "item/padlockskeletonkey" },
-    "creativeinventory": {
-        "general": [ "*" ],
-        "items": [ "*" ]
-    }
-}

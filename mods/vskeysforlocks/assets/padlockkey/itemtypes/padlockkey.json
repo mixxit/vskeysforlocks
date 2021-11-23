@@ -1,7 +1,9 @@
 ﻿{
     "code": "padlockkey",
     "class": "padlockkey",
+    "storageFlags": 257,
     "texture": { "base": "item/padlockkey" },
+    "maxstacksize": 1,
     "creativeinventory": {
         "general": [ "*" ],
         "items": [ "*" ]
