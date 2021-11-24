@@ -79,13 +79,15 @@ namespace vskeysforlocks.src
             return (GetKeySerial(itemStack) > 9999);
         }
 
-        public void SetKeySerial(ItemStack itemStack)
+        // Seed so client and server can match
+        public void SetKeySerial(ItemStack itemStack, int seed)
         {
             if (itemStack.Attributes != null)
             {
                 if (!itemStack.Attributes.HasAttribute("keySerial"))
                 {
-                    itemStack.Attributes.SetInt("keySerial", api.World.Rand.Next(10000, 99999));
+                    var random = new Random(seed);
+                    itemStack.Attributes.SetInt("keySerial", random.Next(10000, 99999));
                     if (!itemStack.Attributes.HasAttribute("keySerial"))
                         throw new Exception("This should not happen");
                 }

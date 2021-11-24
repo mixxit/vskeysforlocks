@@ -5,7 +5,7 @@
     "ingameerror-cannotusekey-keynotserialized": "This key has not been cut to fit any locks",
     "ingameerror-cannotusekey-wrongkey": "This is the wrong key",
     "ingameerror-cannotusekey-nokey": "You need the key with serial {0} in your hand",
-    "keyset": "The new key has been cut!",
+    "keyset": "The new key has been cut with serial {0}!",
     "heldhelp-padlockkey": "Used to Lock and Unlock Keyed Padlocks"
 
 }

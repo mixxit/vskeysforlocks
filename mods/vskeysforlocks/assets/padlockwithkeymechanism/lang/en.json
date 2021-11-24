@@ -6,5 +6,5 @@
     "ingameerror-lockedbykey": "Locked by Key",
     "ingameerror-cannotuse-alreadyhaspadlock": "This already has a padlock with a key mechanism fitted",
     "heldhelp-padlockwithkeymechanism": "Attaches a Padlock with a Key",
-    "keyset": "Padlock configured to key and fit to door"
+    "keyset": "Padlock configured to key with serial {0} and fit to door"
 }

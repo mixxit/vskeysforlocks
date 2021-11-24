@@ -47,7 +47,6 @@ namespace vskeysforlocks.src
 
         public override void OnHeldInteractStart(ItemSlot slot, EntityAgent byEntity, BlockSelection blockSel, EntitySelection entitySel, bool firstEvent, ref EnumHandHandling handling)
         {
-
             if (blockSel != null && byEntity.World.BlockAccessor.GetBlock(blockSel.Position).HasBehavior<BlockBehaviorLockableByKey>(true))
             {
                 ModSystemBlockReinforcement modBre = byEntity.World.Api.ModLoader.GetModSystem<ModSystemBlockReinforcement>();
@@ -109,7 +108,10 @@ namespace vskeysforlocks.src
             // Serialize Key if not set
             if (!(keyItemStack.Item as PadlockKeyItem).IsKeySerialized(keyItemStack))
             {
-                (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).SetKeySerial(player.Entity.LeftHandItemSlot.Itemstack);
+                string seed = block.Pos.X+""+block.Pos.Y+""+block.Pos.Z+""+player.ClientId;
+                if (seed.Length > 9)
+                    seed = seed.Substring(0,9);
+                (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).SetKeySerial(player.Entity.LeftHandItemSlot.Itemstack, Convert.ToInt32(seed));
                 player.Entity.LeftHandItemSlot.MarkDirty();
                 if (api is ICoreClientAPI)
                     (api as ICoreClientAPI).TriggerChatMessage(Lang.Get("padlockkey:keyset", (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).GetKeySerial(keyItemStack)));
