@@ -81,7 +81,6 @@ namespace vskeysforlocks.src
 
         public void SetKeySerial(ItemStack itemStack)
         {
-            throw new Exception("Why did this change on the online server???");
             if (itemStack.Attributes != null)
             {
                 if (!itemStack.Attributes.HasAttribute("keySerial"))
