@@ -3,6 +3,9 @@
     "class": "padlockkey",
     "storageFlags": 257,
     "texture": { "base": "item/padlockkey" },
+    "attributes": {
+        "rackable": true
+    },
     "maxstacksize": 1,
     "creativeinventory": {
         "general": [ "*" ],
