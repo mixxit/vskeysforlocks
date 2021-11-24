@@ -28,7 +28,7 @@ namespace vskeysforlocks.src.BlockBehaviors
             {
                 if (!String.IsNullOrEmpty(((BlockEntityLockableByKey)block).GetKeySerial()) && Convert.ToInt32(((BlockEntityLockableByKey)block).GetKeySerial()) > 9999)
                 {
-                    if (!HasKeyInHands(world, byPlayer, ((BlockEntityLockableByKey)block).GetKeySerial()))
+                    if (!HasRightKeyInHands(world, byPlayer, ((BlockEntityLockableByKey)block).GetKeySerial()))
                     {
                         if (world.Side == EnumAppSide.Client)
                             (world.Api as ICoreClientAPI).TriggerIngameError(this, "locked", Lang.Get("padlockkey:ingameerror-cannotusekey-nokey", ((BlockEntityLockableByKey)block).GetKeySerial()));
@@ -42,15 +42,15 @@ namespace vskeysforlocks.src.BlockBehaviors
             return base.OnBlockInteractStart(world, byPlayer, blockSel, ref handling);
         }
 
-        private bool HasKeyInHands(IWorldAccessor world, IPlayer player, string keySerialToFind)
+        private bool HasRightKeyInHands(IWorldAccessor world, IPlayer player, string keySerialToFind)
         {
             if (String.IsNullOrEmpty(keySerialToFind))
                 return false;
 
-            return HasKeyInSlot(world, player, player.Entity.RightHandItemSlot, keySerialToFind) || HasKeyInSlot(world, player, player.Entity.LeftHandItemSlot, keySerialToFind);
+            return HasRightKeyInSlot(world, player, player.Entity.RightHandItemSlot, keySerialToFind) || HasRightKeyInSlot(world, player, player.Entity.LeftHandItemSlot, keySerialToFind);
         }
 
-        private bool HasKeyInSlot(IWorldAccessor world, IPlayer player, ItemSlot itemSlot, string keySerialToFind)
+        private bool HasRightKeyInSlot(IWorldAccessor world, IPlayer player, ItemSlot itemSlot, string keySerialToFind)
         {
             if (itemSlot == null)
                 return false;
@@ -61,7 +61,12 @@ namespace vskeysforlocks.src.BlockBehaviors
             if (itemSlot.Itemstack == null || itemSlot.Itemstack == null || (itemSlot.Itemstack.Item as PadlockKeyItem) == null)
                 return false;
 
-            if ((itemSlot.Itemstack.Item as PadlockKeyItem).IsKeySerialized(itemSlot.Itemstack))
+            if (!(itemSlot.Itemstack.Item as PadlockKeyItem).IsKeySerialized(itemSlot.Itemstack))
+            {
+                return false;
+            }
+
+            if ((itemSlot.Itemstack.Item as PadlockKeyItem).GetKeySerial(itemSlot.Itemstack).ToString().Equals(keySerialToFind))
             {
                 return true;
             }
