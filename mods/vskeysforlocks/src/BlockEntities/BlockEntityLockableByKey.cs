@@ -20,6 +20,7 @@ namespace vskeysforlocks.src
         public void SetKeySerial(string serial)
         {
             this.keySerial = serial;
+            this.MarkDirty();
         }
 
         public string GetKeySerial()
