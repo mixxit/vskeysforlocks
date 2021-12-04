@@ -7,7 +7,7 @@
                 "name": "BlockBehaviorLockableByKey"
             }
         ],
-        "file": "blocktypes/metal/iron/door.json",
+        "file": "blocktypes/metal/irondoor.json",
         "side": "Server"
     }
 ]
