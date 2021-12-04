@@ -1,0 +1,10 @@
+[
+    {
+        "op": "add",
+        "path": "/entityClass",
+        "value": "BlockEntityLockableByKey",
+        "file": "blocktypes/metal/iron/door.json",
+        "side": "Server"
+    }
+]
+

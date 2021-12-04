@@ -17,7 +17,7 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\Debug\vskeysforlocks\</OutputPath>
+    <OutputPath>$(ProjectDir)\bin</OutputPath>
     <IntermediateOutputPath>..\..\obj\Debug\vskeysforlocks\</IntermediateOutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -26,7 +26,7 @@
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\Release\vskeysforlocks\</OutputPath>
+    <OutputPath>$(ProjectDir)\bin</OutputPath>
     <IntermediateOutputPath>..\..\obj\Release\vskeysforlocks\</IntermediateOutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
@@ -63,31 +63,30 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\padlockwithkeymechanism\textures\item\padlockwithkeymechanism.png" />
+    <Content Include="assets\game\patches\iron-door-add-locking-behavior.json" />
+    <Content Include="assets\game\patches\iron-door-add-locking-blockentity.json" />
+    <Content Include="assets\game\patches\wood-door-add-locking-behavior.json" />
+    <Content Include="assets\game\patches\wood-door-add-locking-blockentity.json" />
+    <Content Include="assets\padlockkey\itemtypes\padlockkey.json" />
+    <Content Include="assets\padlockkey\lang\en.json" />
+    <Content Include="assets\padlockkey\recipes\smithing\padlockkey.json" />
     <Content Include="assets\padlockkey\textures\item\padlockkey.png" />
+    <Content Include="assets\padlockwithkeymechanism\itemtypes\padlockwithkeymechanism.json" />
+    <Content Include="assets\padlockwithkeymechanism\lang\en.json" />
+    <Content Include="assets\padlockwithkeymechanism\recipes\smithing\padlockwithkeymechanism.json" />
+    <Content Include="assets\padlockwithkeymechanism\textures\item\padlockwithkeymechanism.png" />
     <Content Include="modinfo.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="assets\game\patches\door-add-locking-blockentity.json" />
-    <None Include="assets\game\patches\door-add-locking-behavior.json" />
-    <None Include="assets\padlockwithkeymechanism\itemtypes\padlockwithkeymechanism.json" />
-    <None Include="assets\padlockwithkeymechanism\lang\en.json" />
-    <None Include="assets\padlockkey\itemtypes\padlockkey.json" />
-    <None Include="assets\padlockkey\lang\en.json" />
-    <None Include="assets\padlockkey\recipes\smithing\padlockkey.json" />
-    <None Include="assets\padlockwithkeymechanism\recipes\smithing\padlockwithkeymechanism.json" />
-  </ItemGroup>
-  <ItemGroup />
-  <ItemGroup>
-    <Compile Include="src\BlockBehaviors\BlockBehaviorLockableByKey.cs" />
-    <Compile Include="src\BlockEntities\BlockEntityLockableByKey.cs" />
     <Compile Include="src\PadlockKeyItem.cs" />
     <Compile Include="src\PadlockWithKeyMechanismItem.cs" />
     <Compile Include="src\VSKeysForLocksMod.cs" />
+    <Compile Include="src\BlockBehaviors\BlockBehaviorLockableByKey.cs" />
+    <Compile Include="src\BlockEntities\BlockEntityLockableByKey.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>
+copy "$(TargetPath)" "$(ProjectDir)" 
+copy "$(TargetDir)\$(TargetName).pdb" "$(ProjectDir)" 
     </PostBuildEvent>
   </PropertyGroup>
 </Project>

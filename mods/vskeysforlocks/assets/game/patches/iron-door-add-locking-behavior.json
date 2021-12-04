@@ -1,0 +1,14 @@
+[
+    {
+        "op": "add",
+        "path": "/behaviors",
+        "value": [
+            {
+                "name": "BlockBehaviorLockableByKey"
+            }
+        ],
+        "file": "blocktypes/metal/iron/door.json",
+        "side": "Server"
+    }
+]
+
