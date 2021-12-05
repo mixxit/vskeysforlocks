@@ -88,7 +88,7 @@ namespace vskeysforlocks.src
 
             if (block != null && block is BlockEntityLockableByKey)
             {
-                if (!String.IsNullOrEmpty(((BlockEntityLockableByKey)block).GetKeySerial()) && Convert.ToInt32(((BlockEntityLockableByKey)block).GetKeySerial()) > 9999)
+                if (!String.IsNullOrEmpty(((BlockEntityLockableByKey)block).GetKeySerial()) && Convert.ToInt64(((BlockEntityLockableByKey)block).GetKeySerial()) > 9999)
                 {
                     player.SendIngameError("incomplete", Lang.Get("padlockwithkeymechanism:ingameerror-cannotuse-alreadyhaspadlock"));
                     return false;

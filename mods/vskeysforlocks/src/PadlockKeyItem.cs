@@ -62,17 +62,6 @@ namespace vskeysforlocks.src
             base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
         }
 
-        public long GetKeySerial(ItemStack itemStack) // when deserialized json item it will default to long over int
-        {
-            if (itemStack.Attributes != null)
-            {
-                if (!itemStack.Attributes.HasAttribute("keySerial"))
-                    return -1;
-
-                return itemStack.Attributes.GetLong("keySerial", -1); // when deserialized json item it will default to long over int
-            }
-            return -1;
-        }
 
         public bool IsKeySerialized(ItemStack itemStack)
         {
@@ -91,6 +80,25 @@ namespace vskeysforlocks.src
                         throw new Exception("This should not happen");
                 }
             }
+        }
+
+        internal long GetKeySerial(ItemStack itemStack)
+        {
+            if (itemStack.Attributes != null)
+            {
+                try
+                {
+                    if (!itemStack.Attributes.HasAttribute("keySerial"))
+                        return -1;
+
+                    return itemStack.Attributes.GetLong("keySerial", -1); // when deserialized json item it will default to long over int
+                } catch (InvalidCastException)
+                {
+
+                    return -1;
+                }
+            }
+            return -1;
         }
 
         public override WorldInteraction[] GetHeldInteractionHelp(ItemSlot inSlot)
