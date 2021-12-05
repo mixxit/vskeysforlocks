@@ -51,7 +51,7 @@ namespace vskeysforlocks.src
         {
             if (IsKeySerialized(inSlot.Itemstack))
             {
-                int keySerial = GetKeySerial(inSlot.Itemstack);
+                long keySerial = GetKeySerial(inSlot.Itemstack); // when deserialized json item it will default to long over int
                 dsc.AppendLine(Lang.Get("Key Serial: {0}", keySerial.ToString()));
             }
             else
@@ -62,14 +62,14 @@ namespace vskeysforlocks.src
             base.GetHeldItemInfo(inSlot, dsc, world, withDebugInfo);
         }
 
-        public int GetKeySerial(ItemStack itemStack)
+        public long GetKeySerial(ItemStack itemStack) // when deserialized json item it will default to long over int
         {
             if (itemStack.Attributes != null)
             {
                 if (!itemStack.Attributes.HasAttribute("keySerial"))
                     return -1;
 
-                return itemStack.Attributes.GetInt("keySerial", -1);
+                return itemStack.Attributes.GetLong("keySerial", -1); // when deserialized json item it will default to long over int
             }
             return -1;
         }
@@ -86,7 +86,7 @@ namespace vskeysforlocks.src
             {
                 if (!itemStack.Attributes.HasAttribute("keySerial"))
                 {
-                    itemStack.Attributes.SetInt("keySerial", api.World.Rand.Next(10000, 99999));
+                    itemStack.Attributes.SetLong("keySerial", api.World.Rand.Next(10000, 99999)); // when deserialized json item it will default to long over int
                     if (!itemStack.Attributes.HasAttribute("keySerial"))
                         throw new Exception("This should not happen");
                 }
