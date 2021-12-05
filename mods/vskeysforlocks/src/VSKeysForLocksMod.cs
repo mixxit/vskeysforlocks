@@ -24,7 +24,47 @@ namespace vskeysforlocks.src
         public override void StartServerSide(ICoreServerAPI api)
         {
             api.RegisterCommand("fixbrokenkey", "corrects non-long keys", "", CmdFixBrokenKey, "root");
+            api.RegisterCommand("forcekeyserial", "forces a key serial", "", CmdForceKeySerial, "root");
             base.StartServerSide(api);
+        }
+
+        private void CmdForceKeySerial(IServerPlayer player, int groupId, CmdArgs args)
+        {
+            if (args.Length < 1)
+            {
+                player.SendMessage(groupId, $"Missing argument (key serial)", EnumChatType.CommandError);
+                return;
+            }
+
+            try
+            {
+                long serial = Convert.ToInt64(args[0]);
+
+                TryForceKeySerialInSlot(player.Entity.RightHandItemSlot, serial);
+                TryForceKeySerialInSlot(player.Entity.LeftHandItemSlot, serial);
+
+                player.SendMessage(groupId, $"Attempt to force key serial completed, please check serial", EnumChatType.CommandSuccess);
+            } catch (Exception)
+            {
+                player.SendMessage(groupId, $"Invalid argument (key serial)", EnumChatType.CommandError);
+                return;
+            }
+
+            
+
+        }
+
+        private void TryForceKeySerialInSlot(ItemSlot itemSlot, long serial)
+        {
+            if (itemSlot.Itemstack == null || itemSlot.Itemstack.Item == null || (itemSlot.Itemstack.Item as PadlockKeyItem) == null)
+                return;
+
+            // already fixed
+            if ((itemSlot.Itemstack.Item as PadlockKeyItem).IsKeySerialized(itemSlot.Itemstack))
+                return;
+
+            (itemSlot.Itemstack.Item as PadlockKeyItem).SetKeySerial(itemSlot.Itemstack, serial);
+            itemSlot.MarkDirty();
         }
 
         private void CmdFixBrokenKey(IServerPlayer player, int groupId, CmdArgs args)
@@ -32,7 +72,7 @@ namespace vskeysforlocks.src
             TryFixKeyInSlot(player.Entity.RightHandItemSlot);
             TryFixKeyInSlot(player.Entity.LeftHandItemSlot);
 
-            player.SendMessage(groupId, $"Side: {player.Entity.World.Side.ToString()}", EnumChatType.OwnMessage);
+            player.SendMessage(groupId, $"Attempt to fix key completed, please check serial", EnumChatType.CommandSuccess);
             
         }
 
