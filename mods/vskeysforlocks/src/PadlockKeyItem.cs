@@ -69,16 +69,13 @@ namespace vskeysforlocks.src
         }
 
         // Seed so client and server can match
-        public void SetKeySerial(ItemStack itemStack)
+        public void SetKeySerial(ItemStack itemStack, long keySerial)
         {
             if (itemStack.Attributes != null)
             {
+                itemStack.Attributes.SetLong("keySerial", keySerial); // when deserialized json item it will default to long over int
                 if (!itemStack.Attributes.HasAttribute("keySerial"))
-                {
-                    itemStack.Attributes.SetLong("keySerial", api.World.Rand.Next(10000, 99999)); // when deserialized json item it will default to long over int
-                    if (!itemStack.Attributes.HasAttribute("keySerial"))
-                        throw new Exception("This should not happen");
-                }
+                    throw new Exception("This should not happen");
             }
         }
 

@@ -117,7 +117,7 @@ namespace vskeysforlocks.src
             // Serialize Key if not set
             if (!(keyItemStack.Item as PadlockKeyItem).IsKeySerialized(keyItemStack))
             {
-                (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).SetKeySerial(player.Entity.LeftHandItemSlot.Itemstack);
+                (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).SetKeySerial(player.Entity.LeftHandItemSlot.Itemstack, api.World.Rand.Next(10000, 99999));
                 player.Entity.LeftHandItemSlot.MarkDirty();
                 player.SendMessage(GlobalConstants.GeneralChatGroup,Lang.Get("padlockkey:keyset", (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).GetKeySerial(keyItemStack)), EnumChatType.OwnMessage);
             }
