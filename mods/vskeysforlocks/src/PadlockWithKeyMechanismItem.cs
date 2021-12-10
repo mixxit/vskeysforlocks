@@ -37,7 +37,7 @@ namespace vskeysforlocks.src
                 {
                     new WorldInteraction()
                     {
-                        ActionLangCode = "padlockwithkeymechanism:heldhelp-padlockwithkeymechanism",
+                        ActionLangCode = "vskeysforlocks:heldhelp-padlockwithkeymechanism",
                         HotKeyCode = "sneak",
                         MouseButton = EnumMouseButton.Right,
                         Itemstacks = stacks.ToArray()
@@ -90,27 +90,27 @@ namespace vskeysforlocks.src
             {
                 if (!String.IsNullOrEmpty(((BlockEntityLockableByKey)block).GetKeySerial()) && Convert.ToInt64(((BlockEntityLockableByKey)block).GetKeySerial()) > 9999)
                 {
-                    player.SendIngameError("incomplete", Lang.Get("padlockwithkeymechanism:ingameerror-cannotuse-alreadyhaspadlock"));
+                    player.SendIngameError("incomplete", Lang.Get("vskeysforlocks:ingameerror-cannotuse-alreadyhaspadlock"));
                     return false;
                 }
             }
 
             if (keyItemStack == null || keyItemStack.Item == null || (keyItemStack.Item as PadlockKeyItem) == null)
             {
-                player.SendIngameError("incomplete", Lang.Get("padlockwithkeymechanism:ingameerror-cannotuse-missingkey"));
+                player.SendIngameError("incomplete", Lang.Get("vskeysforlocks:ingameerror-cannotuse-missingkey"));
                 return false;
             }
 
             ModSystemBlockReinforcement modBre = player.Entity.World.Api.ModLoader.GetModSystem<ModSystemBlockReinforcement>();
             if (modBre == null)
             {
-                player.SendIngameError("incomplete", Lang.Get("padlockwithkeymechanism:ingameerror-cannotuse-notreinforced"));
+                player.SendIngameError("incomplete", Lang.Get("vskeysforlocks:ingameerror-cannotuse-notreinforced"));
                 return false;
             }
 
             if (!modBre.IsReinforced(blockSelection.Position))
             {
-                player.SendIngameError("incomplete", Lang.Get("padlockwithkeymechanism:ingameerror-cannotuse-notreinforced"));
+                player.SendIngameError("incomplete", Lang.Get("vskeysforlocks:ingameerror-cannotuse-notreinforced"));
                 return false;
             }
 
@@ -119,7 +119,7 @@ namespace vskeysforlocks.src
             {
                 (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).SetKeySerial(player.Entity.LeftHandItemSlot.Itemstack, api.World.Rand.Next(10000, 99999));
                 player.Entity.LeftHandItemSlot.MarkDirty();
-                player.SendMessage(GlobalConstants.GeneralChatGroup,Lang.Get("padlockkey:keyset", (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).GetKeySerial(keyItemStack)), EnumChatType.OwnMessage);
+                player.SendMessage(GlobalConstants.GeneralChatGroup,Lang.Get("vskeysforlocks:keyset", (player.Entity.LeftHandItemSlot.Itemstack.Item as PadlockKeyItem).GetKeySerial(keyItemStack)), EnumChatType.OwnMessage);
             }
 
             var padLockKey = ((PadlockKeyItem)keyItemStack.Item);
@@ -127,14 +127,14 @@ namespace vskeysforlocks.src
             if (!padLockKey.IsKeySerialized(keyItemStack))
             {
                 if (api is ICoreClientAPI)
-                    (api as ICoreClientAPI).TriggerIngameError(this, "incomplete", Lang.Get("padlockwithkeymechanism:ingameerror-cannotuse-missingkey"));
+                    (api as ICoreClientAPI).TriggerIngameError(this, "incomplete", Lang.Get("vskeysforlocks:ingameerror-cannotuse-missingkey"));
                 return false;
             }
 
             if (block != null && block is BlockEntityLockableByKey)
             {
                 ((BlockEntityLockableByKey)block).SetKeySerial(padLockKey.GetKeySerial(keyItemStack).ToString());
-                player.SendMessage(GlobalConstants.GeneralChatGroup, Lang.Get("padlockwithkeymechanism:keyset", padLockKey.GetKeySerial(keyItemStack)), EnumChatType.OwnMessage);
+                player.SendMessage(GlobalConstants.GeneralChatGroup, Lang.Get("vskeysforlocks:keyset", padLockKey.GetKeySerial(keyItemStack)), EnumChatType.OwnMessage);
                 return true;
             }
 

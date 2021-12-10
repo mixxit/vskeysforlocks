@@ -31,7 +31,7 @@ namespace vskeysforlocks.src.BlockBehaviors
                     if (!HasRightKeyInHands(world, byPlayer, ((BlockEntityLockableByKey)block).GetKeySerial()))
                     {
                         if (world.Side == EnumAppSide.Client)
-                            (world.Api as ICoreClientAPI).TriggerIngameError(this, "locked", Lang.Get("padlockkey:ingameerror-cannotusekey-nokey", ((BlockEntityLockableByKey)block).GetKeySerial()));
+                            (world.Api as ICoreClientAPI).TriggerIngameError(this, "locked", Lang.Get("vskeysforlocks:ingameerror-cannotusekey-nokey", ((BlockEntityLockableByKey)block).GetKeySerial()));
 
                         handling = EnumHandling.PreventSubsequent;
                         return false;

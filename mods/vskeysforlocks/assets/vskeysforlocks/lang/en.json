@@ -1,10 +1,14 @@
 ﻿{
+    "item-padlockkey": "Padlock Key",
+    "item-itemdesc": "Used to Lock and Unlock Keyed Padlocks",
+    "ingameerror-cannotusekey-nokey": "You need the key with serial {0} in your hand",
+    "keyset": "The new key/lock has been configured with serial {0}!",
+    "heldhelp-padlockkey": "Used to Lock and Unlock Keyed Padlocks",
     "item-padlockwithkeymechanism": "Padlock With Key Mechanism",
     "ingameerror-cannotuse-notreinforced": "The object must be reinforced for you to fit this",
     "ingameerror-cannotuse-missingkey": "You must have the key in your offhand to fit this",
     "ingameerror-cannotuse-error": "Problem fitting this",
     "ingameerror-lockedbykey": "Locked by Key",
     "ingameerror-cannotuse-alreadyhaspadlock": "This already has a padlock with a key mechanism fitted",
-    "heldhelp-padlockwithkeymechanism": "Attaches a Padlock with a Key",
-    "keyset": "Padlock configured to key with serial {0} and fit to door"
+    "heldhelp-padlockwithkeymechanism": "Attaches a Padlock with a Key"
 }

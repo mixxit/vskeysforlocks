@@ -38,7 +38,7 @@ namespace vskeysforlocks.src
                 {
                     new WorldInteraction()
                     {
-                        ActionLangCode = "padlockkey:heldhelp-padlockkey",
+                        ActionLangCode = "vskeysforlocks:heldhelp-padlockkey",
                         HotKeyCode = "sneak",
                         MouseButton = EnumMouseButton.Right,
                         Itemstacks = stacks.ToArray()
